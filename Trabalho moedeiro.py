@@ -1,13 +1,13 @@
-#o código começa com essa parte que determina a quantidade de cada cédula presente na maquina 
+#Determina a quantidade de moedas e de cédulas na maquina
 moeda_25_centavos = 0
 moeda_50_centavos = 0
 moeda_1_real = 0
 cedula_2_reais = 0
-cedula_5_reais = 0
+cedula_5_reais = 2
 cedula_10_reais = 0
 cedula_20_reais = 0
 
-#é determinado valor de cada moeda para ficar mais fácil a soma total no valor da maquina
+#Determina o valor de cada moeda e cédula para relalizar as operações
 moeda25 = 0.25
 moeda50 = 0.50
 moeda1 = 1
@@ -16,7 +16,7 @@ cedula5 = 5
 cedula10 = 10
 cedula20 = 20
 
-#aqui é a parte onde é calculado o valor geral de cada tipo de cédula e  de moeda 
+#Realiza o calculo do valor total em dinheiro da qunatidade de cada cedula e moeda
 moeda25 *= moeda_25_centavos
 moeda50 *= moeda_50_centavos
 moeda1 *= moeda_1_real
@@ -25,31 +25,30 @@ cedula5 *= cedula_5_reais
 cedula10 *= cedula_10_reais
 cedula20 *= cedula_20_reais
 
-#aqui é predeterminado a quantidade de cada produtoporém só possuimos a coca cola)
-quantidade_coca = 10
+#Determina a quantidade do produto na maquina
+quantidade_coca = 1
 
-#aqui ocorre a definição de uma função para que no perfil de administrador seja possível a quantidade de coca seja permanecida sempre que o código reiniciar
-#e é posssível fazer isso dando a peculiariedade global a variavel quantidade_coca
+#Define uma função global para que a quantidade de CocaCola seja mantida após o codigo reniciar
+#Para isso é dada a particularidade global à variavel quantidade_coca
 def armazenamento_coca(escolha):
     global quantidade_coca
     quantidade_coca=escolha
 
-#é calculado o valor total da maquina com a soma de todas as variáveis que levavam o valor total de cada tipo de cédula e moeda
+#Define o calculo para o valor total presente na maquina usando as variaveis definidas anteriormente para para definir o valor total da quantidade de cada cedula
 moedas_totais_da_maquina = moeda25 + moeda50 + moeda1 + cedula2 + cedula5 + cedula10 + cedula20
 
-#os numeros quando o pagamento é realizado em pix são armazenados nessa variavel 
+#Define onde serão armazenados os numeros de PIX
 numeros_armazenamento = []
 
 
-#aqui é definido uma função que tem o objetivo de armazenar as moedas e cédulas da maquina 
+#Função que define o armazenamento dos valores inseridos na maquina
 def armazenar_moedas (valor_inserido):
-    #aqui é definido que as variáveis de quantidade da maquina tem que ser global para que ela rode pelo código todo sem problemas
+    #Define as variaveis como globais para que possam ser usadas em todo o código
     global moeda_25_centavos, moeda_50_centavos, moeda_1_real, cedula_2_reais, cedula_5_reais, cedula_10_reais, cedula_20_reais
     
-    #primeiro é realizado uma verificação para saber se a moeda ou cédula inserida é catalogada e valida no sistema
+    #Define se o valor inserido é reconhecido no sistema e valida o valor logo em seguida,
     if valor_inserido in [0.25,0.50,1,2,5,10,20]:
-        #segundo ocorre novamente uma verificação para saber qual que foi a nota ou cédula inserida, 
-        # e logo depois dessa verificação ocorre a soma na variavel de quantidade equivalente ao valor inserido 
+        #Verifica qual cedula ou moeda foi inserida e realiza a soma
         if valor_inserido==0.25:
             moeda_25_centavos+=1
         elif valor_inserido==0.50:
@@ -65,20 +64,20 @@ def armazenar_moedas (valor_inserido):
         elif valor_inserido ==20:
             cedula_20_reais+=1
     
-#logo depois temos outra definição de função, porém dessa vez a função tem o objetivo de armazenar o numero de celular quando a opção de pagamento for pix   
+#Define a função para armazenar os valores de PIX  
 def armazenar_numero(numero_celular, valor):
+    #Adiciona na lista os numeros usados no PIX e o valor da compra
     numeros_armazenamento.append([numero_celular, valor])
 
-#aqui temos a "palavra chave" para que ocorra a reinicialização do código após o uso de qualquer um dos usuarios
+#É definido a variavel usada como condição para que o código renicie usando o loop de while
 reiniciar = 's'
-#logo depois é usado o while para que toda vez que for digitado "s" na opção reiniciar (que esta no final do código) o código inicie da seleção de perfil 
+#É iniciado o loop while para sempre manter o código rodando mantendo as informações salvas
 while reiniciar == 's':
-    #abaixo ocorre a seleção de qual sera o perfil desejado para a maquina rodar
     print('1 - Usuário')
     print('2 - Administrador')
 
     usg = int(input('Qual usuário você deseja? '))
-    #apenas um sistema basico para que se repita até que seja digitado um perfil valido
+    #Loop while para impedir que outra opção seja escolhida ao invés dos perfis de usuarios.
     while usg > 2 or usg < 1:
         print('Usuário inválido')
         print('1 - Usuário')
@@ -87,7 +86,7 @@ while reiniciar == 's':
 
 
     if usg == 2:
-        #se o perfil escolhido for o do administrado ele tera acesso a todas as opções que esta abaixo
+        #Opções de administrador
         print('Opções do Administrador:')
         print('a - Verificar quantidade de cédulas e moedas')
         print('b - Mudar quantidade de cédulas')
@@ -97,9 +96,9 @@ while reiniciar == 's':
         print('f - Verificar os telefones registrados no PIX e o valor pago')
 
         escolha_admin = input('Escolha uma opção: ')
-
+        #Quantidade de cedulas e moedas presentes atualmente na maquina
         if escolha_admin == 'a':
-            #aqui apenas nos mostra a quantidade de cada cedula e moeda que esta presente na maquina
+            
             print('Quantidade de cédulas:')
             print('Cédulas de 2 reais:', cedula_2_reais)
             print('Cédulas de 5 reais:', cedula_5_reais)
@@ -110,7 +109,7 @@ while reiniciar == 's':
             print('Moedas de 50 centavos:', moeda_50_centavos)
             print('Moedas de 1 real:', moeda_1_real)
         elif escolha_admin == 'b':
-            #aqui ocorre a seleção de qual sera a cédula escolida para ter seu valor mudado 
+            
             print('Escolha a cédula que deseja modificar:')
             print('1 - Cédulas de 2 reais')
             print('2 - Cédulas de 5 reais')
@@ -119,8 +118,8 @@ while reiniciar == 's':
 
             escolha_cedula = int(input('Digite o número da cédula: '))
 
-            #logo após a escolha o código verifica qual foi a cédula escolida e da um input para que seja digitado a nova quantidade de cédula,
-            #e se a cédula não estiver presente nas opções de escolha o código devolve que o valor inserido é invalido
+            #Area onde pode modificar a quantidade de cedulas escolhida
+            #Se ocorrer alguma opção que não encaixe o codigo vai reinicializar
             if escolha_cedula == 1:
                 nova_qtd = int(input('Digite a nova quantidade de cédulas de 2 reais: '))
                 cedula_2_reais = nova_qtd
@@ -138,18 +137,18 @@ while reiniciar == 's':
                 cedula_20_reais = nova_qtd
                 print('Quantidade de cédulas de 20 reais atualizada.')
             else:
+                #Se for escolhida alguma opção não ultizavel, replica opção invalida e pergunta se quer reiniciar
                 print('Opção inválida.')
 
         elif escolha_admin == 'c':
-            #aqui ocorre o mesmo caso para que ocorra a seleção de qual sera a moeda escolida para ter seu valor mudado 
+            
             print('Escolha a moeda que deseja modificar:')
             print('1 - Moedas de 25 centavos')
             print('2 - Moedas de 50 centavos')
             print('3 - Moedas de 1 real')
-
+            
             escolha_moeda = int(input('Digite o número da moeda: '))
-            #logo após a escolha o código verifica qual foi a cédula escolida e da um input para que seja digitado a nova quantidade de cédula,
-            #e se a cédula não estiver presente nas opções de escolha o código devolve que o valor inserido é invalido
+            #Area onde pode modificar a quantidade de moedas escolhida
             if escolha_moeda == 1:
                 nova_qtd = int(input('Digite a nova quantidade de moedas de 25 centavos: '))
                 moeda_25_centavos = nova_qtd
@@ -163,99 +162,104 @@ while reiniciar == 's':
                 moeda_1_real = nova_qtd
                 print('Quantidade de moedas de 1 real atualizada.')
             else:
+                #Se for escolhida alguma opção não ultizavel, replica opção invalida e pergunta se quer reiniciar
                 print('Opção inválida.')
         
-        #apenas é mostrado a quantidade de cocas na maquina
+        #Mostra a quantidade de latas na maquina
         elif escolha_admin == 'd':
-            print('A máquina possui', quantidade_coca, 'latinhas de coca')
-        #aqui ocorre a modificação na quantidade de cocas presentes na maquina
+            print('A máquina possui', quantidade_coca, 'latinhas de Coca Cola')
+        #Modifica a quantidade de latas presentes na maquina
         elif escolha_admin == 'e':
-            nova_quantidade_coca = int(input('digite a quantidade que deseja modificar: '))
-            #ocorre a chamada da função para que seja mudada permanentemente durante o uso da maquina a quantidade de cocas presente no armazenamento
-            armazenamento_coca(nova_quantidade_coca)
+            nova_quantidade_coca = int(input('Digite a quantidade que deseja modificar: '))
+
+            #Operação para a modificação de latas na maquina
+            quantidade_coca = (nova_quantidade_coca + quantidade_coca)
+            
             print('A quantidade de latinhas é de', quantidade_coca)
-        #aqui é onde é mostrado para o administrador o numero de telefone e o valor pago quando a opção de pagamento for pix no perfi do usuário 
+        #Mostra a lista presente na função armazenar_numero que contem os numeros usados no PIX e os valores comprados respectivamente
         elif escolha_admin == 'f':
             print('Número e valor pago, respectivamente: ', numeros_armazenamento)
-        #se for escolido uma opção q não exite é mostrado q a opção é invalida
+        #Se for escolhida alguma opção não ultizavel, replica opção invalida e pergunta se quer reiniciar
         else:
             print('Opção inválida.')
 
     if usg == 1:
-        #a primeira ação da maquina quando o perfil escolido é de usuario é analisar se a maquina possui quantidade o suficiente de produtos para que seja possivel realizar a 
+        #Ao escolher o perfil de usurio a maquina analisa se tem produtos no estoque.
         if quantidade_coca <= 0:
+            #Caso não tenha ela replica:
             print('Desculpe, nossa máquina está sem estoque')
-        #e se ouver a quantidade o suficiente ele continua o código normalmente
+        #Caso tenha produtos no estoque, a maquina continua normalmente
         else:
            coca_cola = 1
-        #aqui é mostrado quais que são os produtos que a maquina tem (por enquanto somente coca cola )
+        #Aqui é pedido para selecionar o produto
         print('1 - Coca Cola = 5$')
-        #aqui ocorre o input para saber qual que vai ser o produto escolido para que seja realizado a compra, 
         pedido = int(input('Digite 1 para selecionar a bebida, o valor unitário é de 5 reais. '))
-        #como não tem outro produto além da coca é definido como se a sua escolha for diferente de 1(coca cola) a maquina não é capaz de realizar a compra
+        #Se for escolhida alguma opção não ultizavel, replica opção invalida e pergunta se quer reiniciar       
         if pedido != 1:
-            print('Número inválido!')
+            print('Opção inválida!')
 
-        #logo após selecionar o produto lhes é perguntado qual a quantidade do produto é desejada
+        #Verifica-se a quantidade do produto desejada:
         else:
          qtde = int(input('Qual a quantidade de latinhas que deseja comprar?'))
-         #e se a maquina possui menos produto do que o que é desejado ele n é possível de realizar a compra
+         #Caso a quantidade desejada ultrapasse a quantidade de produtos presentes na maquina ele replica:
         if qtde > quantidade_coca:
             print('Quantidade de unidades solicitadas maior que o estoque é capaz de fornecer')
-        #após forncer a quantidade desejada e a maquina possuir produtos o suficiente é perguntado qual sera a forma de pagamento 
+        
         else:
          if pedido == 1:
+            #É perguntado o metodo de pagamento requerido
             print('1 - Dinheiro')
             print('2 - Pix')
             modo_pagamento = int(input('Qual a forma de pagamento? '))
-            #se o modo de pagamento for pix ele puxa o usuario para essa parte do código onde é feita somente para o modo de pagamento pix
+            #Método de pagamento PIX
             if modo_pagamento == 2:
-                #é multiplicado o valor da coca pela quantidade para que seja adiquirido o valor total a ser pago
+                #É efetuado a multiplicação para mostrar o valor total a ser pago
                 valor = 5 * qtde
                 print('O valor a ser pago é de', valor, 'reais')
-                #depois de mostrado o valor total a ser pago lhes é fornecido 2 input para q seja recolhido pela maquina o numero de telefone e o valor a ser pago 
+                #É colocado um input para colocar o numero de telefone do PIX e o valor
                 numero_celular = input('Insira seu número de telefone (DDD) xxxxx-xxxx: ')
-                valor_pg = float(input('Insira o valor da compra: '))
-                #logo após acontece o reconhecimento para saber se o numero de telefone é valido ou não
+                valor_pg = float(input('Insira o valor da compra'))
                 
+                #Realiza uma verificação se o numero de telefone é válido ou não
                 if numero_celular != 0:
-                    #e se for válido ocorre a chamada da função armazenar_numero
-                    # onde é armazenado em uma matriz de 2 colunas e infinitas linhas o numero de telefone e o valor pago por esse numero de telefone
+                    #Caso for válido ocorre a chamada da função armazenar_numero
+                    #Onde é armazenado na matriz de duas colunas na função
                     armazenar_numero(numero_celular, valor_pg)
                 else:
-                    #se for invalido somente é printado eu o numero é invalido
+                #Se for escolhida alguma opção não ultizavel, replica opção invalida e pergunta se quer reiniciar
                     print('Número de telefone inválido.')
-                #se o for inserido o valor certo de compra o código realiza a compra com sucesso
+                #Caso o for inserido o valor certo de compra o código realiza a compra com sucesso
                 if valor == valor_pg:
-                    #logo após ocorre a subtração do valor de cocas presente na maquina com o valor de cocas retirado
+                    #Logo após ocorre a subtração da qauntidade de latas presentes na maquina com a quantidade de latas retiradas
                     quantidade_coca = quantidade_coca - qtde
                     print('Pagamento efetuado com sucesso!')
 
-                #entretanto se o valor inserido for diferente ele determina como incorreto e encerra o código
+                #Entretanto se o valor inserido for diferente ele determina como incorreto e pergunta se quer reiniciar
                 else:
                     print('Valor incorreto')
-                    # porém mesmo assim armazena na matriz o numero e o valor inserido
+                    #Porém ainda armazena a chave o valor inserido
 
 
-            #se o modo de pagamento escolhido for em dinheiro ocorrera todo esse processo abaixo
+            #Método de pagamento dinheiro
             elif modo_pagamento == 1:
-                #é multiplicado o valor da coca pela quantidade para que seja adiquirido o valor total a ser pago
+                #É efetuado a multiplicação para mostrar o valor total a ser pago
                 valor = 5 * qtde
                 print('O valor a ser pago é de', valor, 'reais')
-                #logo após é mostrado o valor total a ser pago, e pede para que seja inserido o valor de cada nota 
+                #Logo após ser mostrado o valor total a ser pago, a maquina pede para que seja inserido o valor de cada nota 
                 pagamento = float(input('Insira o dinheiro necessário: '))
-                #logo após ocorre a chamda da função para que seja armazenada na variavel de quantidade de cada cédula e moeda da maquina o valor inserido na hora do pagamento
+            
+                #logo após ocorre a chamada da função para armazenar na variavel a quantidade de cédulas e moedas usadas na hora do pagamento
                 armazenar_moedas(pagamento)
                
-               #aqui ocorre a verificação caso o numero inserido seja invalido ou não esta nas opções de cédulas e moedas aceitas pela máquina
+               #Aqui ocorre a verificação caso o numero inserido seja invalido ou não esta nas opções de cédulas e moedas aceitas pela máquina
                 while pagamento not in [0.25,0.50,1,2,5,10,20]:
                     print('pagamento invalido')
                     pagamento = float(input('insira o dinheiro necessário: '))
                     #e novamente ocorre o chamado da função para que armazene na maquina a quantidade inserida na hora do pagamento
                     armazenar_moedas(pagamento)
-                #logo abaixo é um sistema para que armazene o valor inserido caso a moeda ou cédula tenha um valor inferior ao do produto
+                #Logo abaixo é um sistema para que armazene o valor inserido caso a moeda ou cédula tenha um valor inferior ao do produto
                 dinheiro_faltante=((pagamento-valor)*-1)
-                #a variavel dinheiro_faltante pega como valor a quantidade inserida no pagamento e diminui com o valor para que pegue o resto a ser pago
+                #A variavel dinheiro_faltante pega como valor a quantidade inserida no pagamento e diminui com o valor para que pegue o resto a ser pago
                 #e é multiplicado por -1 para que não dê nenhum valor negativo
                 pg1=0
                 #a variavel pg1 tem a funcionalidade ir somando a si o valor inserido no pagamento 
